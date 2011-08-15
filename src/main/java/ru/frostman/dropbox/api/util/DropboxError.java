@@ -43,6 +43,15 @@ public class DropboxError {
         METADATA_ERRORS.put(406, "Too many file entries to return.");
     }
 
+    //  Thumbnails request errors
+    private static final Map<Integer, String> THUMBNAILS_ERRORS = Maps.createHashMap();
+
+    static {
+        THUMBNAILS_ERRORS.put(404, "File extension doesn't allow thumbnailing.");
+        THUMBNAILS_ERRORS.put(415, "Image is invalid and cannot be thumbnailed.");
+        THUMBNAILS_ERRORS.put(500, "No thumbnail available due to system error.");
+    }
+
     private static void throwError(Map<Integer, String> errors, int code) {
         String msg = errors.get(code);
 
@@ -63,9 +72,17 @@ public class DropboxError {
     }
 
     public static Response checkMetadata(Response response) {
-        int code =response.getCode();
+        int code = response.getCode();
 
         throwError(METADATA_ERRORS, code);
+
+        return check(response);
+    }
+
+    public static Response checkThumbnails(Response response) {
+        int code = response.getCode();
+
+        throwError(THUMBNAILS_ERRORS, code);
 
         return check(response);
     }

@@ -48,7 +48,7 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
     public static DropboxClient build(String appKey, String appSecret, Token accessToken) {
         //todo add preconditions
         DropboxClientBuilder builder = new DropboxClientBuilder(appKey, appSecret);
-        builder.setAccessToken(accessToken);
+        builder.accessToken = accessToken;
 
         return builder.buildDropboxClient();
     }
@@ -56,7 +56,7 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
     public static DropboxClient build(String appKey, String appSecret, String token, String secret) {
         //todo add preconditions
         DropboxClientBuilder builder = new DropboxClientBuilder(appKey, appSecret);
-        builder.setAccessToken(new Token(token, secret));
+        builder.accessToken = new Token(token, secret);
 
         return builder.buildDropboxClient();
     }
@@ -109,35 +109,5 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
 //        System.out.println(request.send().getBody());
 
         return buildDropboxClient();
-    }
-
-    // Others
-
-    public boolean isAuthorized() {
-        return accessToken != null;
-    }
-
-    public String getCallback() {
-        return callback;
-    }
-
-    public OAuthService getService() {
-        return service;
-    }
-
-    public Token getRequestToken() {
-        return requestToken;
-    }
-
-    public void setRequestToken(Token requestToken) {
-        this.requestToken = requestToken;
-    }
-
-    public Token getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(Token accessToken) {
-        this.accessToken = accessToken;
     }
 }

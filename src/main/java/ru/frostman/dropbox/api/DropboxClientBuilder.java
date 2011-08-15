@@ -5,10 +5,11 @@ import org.scribe.builder.api.DropBoxApi;
 import org.scribe.model.*;
 import org.scribe.oauth.OAuthService;
 import org.scribe.utils.Preconditions;
-import org.scribe.utils.URLUtils;
 import ru.frostman.dropbox.api.auth.DropboxAuthentication;
 import ru.frostman.dropbox.api.auth.MobileAuthentication;
 import ru.frostman.dropbox.api.auth.WebAuthentication;
+
+import static org.scribe.utils.URLUtils.formURLEncode;
 
 /**
  * @author slukjanov aka Frostman
@@ -86,7 +87,7 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
 
     public String getAuthorizationUrl() {
         return service.getAuthorizationUrl(requestToken)
-                + "&" + OAuthConstants.CALLBACK + "=" + URLUtils.formURLEncode(callback);
+                + "&" + OAuthConstants.CALLBACK + "=" + formURLEncode(callback);
     }
 
     public DropboxClient receiveAccessToken() {

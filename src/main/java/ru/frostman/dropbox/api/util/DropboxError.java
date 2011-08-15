@@ -68,6 +68,11 @@ public class DropboxError {
         throwError(OAUTH_ERRORS, code);
         throwError(API_ERRORS, code);
 
+        if (code != 200) {
+            //todo impl
+            throw new RuntimeException("Unknown error with code: " + code);
+        }
+
         return response;
     }
 
@@ -83,6 +88,34 @@ public class DropboxError {
         int code = response.getCode();
 
         throwError(THUMBNAILS_ERRORS, code);
+
+        return check(response);
+    }
+
+    public static Response checkCopy(Response response) {
+
+        //todo impl
+
+        return check(response);
+    }
+
+    public static Response checkMove(Response response) {
+
+        //todo impl
+
+        return check(response);
+    }
+
+    public static Response checkDelete(Response response) {
+
+        //todo impl
+
+        return check(response);
+    }
+
+    public static Response checkCreateFolder(Response response) {
+
+        //todo impl
 
         return check(response);
     }

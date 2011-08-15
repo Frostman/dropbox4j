@@ -10,8 +10,7 @@ import ru.frostman.dropbox.api.util.Json;
 
 import javax.annotation.Nullable;
 
-import static ru.frostman.dropbox.api.util.DropboxError.check;
-import static ru.frostman.dropbox.api.util.DropboxError.checkMetadata;
+import static ru.frostman.dropbox.api.util.DropboxError.*;
 
 /**
  * @author slukjanov aka Frostman
@@ -19,6 +18,10 @@ import static ru.frostman.dropbox.api.util.DropboxError.checkMetadata;
 public class DropboxClient {
     private static final String INFO_URL = "https://api.dropbox.com/0/account/info";
     private static final String METADATA_URL = "https://api.dropbox.com/0/metadata/dropbox";
+    private static final String FILE_OPS_COPY_URL = "https://api.dropbox.com/0/fileops/copy";
+    private static final String FILE_OPS_MOVE_URL = "https://api.dropbox.com/0/fileops/move";
+    private static final String FILE_OPS_DELETE_URL = "https://api.dropbox.com/0/fileops/delete";
+    private static final String FILE_OPS_CREATE_FOLDER_URL = "https://api.dropbox.com/0/fileops/create_folder";
 
     private final OAuthService service;
     private final Token accessToken;
@@ -76,4 +79,47 @@ public class DropboxClient {
         return Json.parse(content, Entry.class);
     }
 
+    public Entry copy(String from, String to) {
+        OAuthRequest request = new OAuthRequest(Verb.GET, FILE_OPS_COPY_URL);
+        request.addQuerystringParameter("root", "dropbox");
+        request.addQuerystringParameter("from_path", from);
+        request.addQuerystringParameter("to_path", to);
+
+        service.signRequest(accessToken, request);
+        String content = checkCopy(request.send()).getBody();
+
+        return Json.parse(content, Entry.class);
+    }
+
+    public Entry move(String from, String to) {
+        OAuthRequest request = new OAuthRequest(Verb.GET, FILE_OPS_MOVE_URL);
+        request.addQuerystringParameter("root", "dropbox");
+        request.addQuerystringParameter("from_path", from);
+        request.addQuerystringParameter("to_path", to);
+
+        service.signRequest(accessToken, request);
+        String content = checkMove(request.send()).getBody();
+
+        return Json.parse(content, Entry.class);
+    }
+
+    public void delete(String path) {
+        OAuthRequest request = new OAuthRequest(Verb.GET, FILE_OPS_DELETE_URL);
+        request.addQuerystringParameter("root", "dropbox");
+        request.addQuerystringParameter("path", path);
+
+        service.signRequest(accessToken, request);
+        checkDelete(request.send());
+    }
+
+    public Entry createFolder(String path) {
+        OAuthRequest request = new OAuthRequest(Verb.GET, FILE_OPS_CREATE_FOLDER_URL);
+        request.addQuerystringParameter("root", "dropbox");
+        request.addQuerystringParameter("path", path);
+
+        service.signRequest(accessToken, request);
+        String content = checkCreateFolder(request.send()).getBody();
+
+        return Json.parse(content, Entry.class);
+    }
 }

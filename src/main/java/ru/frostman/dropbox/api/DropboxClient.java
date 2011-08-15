@@ -7,6 +7,8 @@ import org.scribe.oauth.OAuthService;
 import ru.frostman.dropbox.api.model.AccountInfo;
 import ru.frostman.dropbox.api.util.Json;
 
+import static ru.frostman.dropbox.api.util.DropboxError.check;
+
 /**
  * @author slukjanov aka Frostman
  */
@@ -28,7 +30,7 @@ public class DropboxClient {
     public AccountInfo getAccountInfo() {
         OAuthRequest request = new OAuthRequest(Verb.GET, INFO_URL);
         service.signRequest(accessToken, request);
-        String content = request.send().getBody();
+        String content = check(request.send()).getBody();
 
         //todo think about errors handling
         return Json.parse(content, AccountInfo.class);

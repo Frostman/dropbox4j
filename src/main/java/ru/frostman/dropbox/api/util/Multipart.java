@@ -14,26 +14,32 @@ public class Multipart {
     private static final String CHARSET_NAME = "UTF-8";
 
     public static OAuthRequest attachFile(File file, OAuthRequest request) throws IOException {
-        String boundary = generateBoundaryString(10);
-        String contentType = "multipart/form-data; boundary=" + boundary;
-        request.addHeader("Content-Type", contentType);
+        String boundary = generateBoundaryString();
+        request.addHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
+        request.addBodyParameter("file", file.getName());
 
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        StringBuilder boundaryMessage = new StringBuilder("--").append(boundary)
+                .append("\r\n")
+                .append("Content-Disposition: form-data; name=\"file\"; filename=\"").append(file.getName())
+                .append("\"\r\n")
+                .append("Content-Type: ").append("application/x-unknown")
+                .append("\r\n\r\n");
 
-        out.write(("--" + boundary + "\r\n").getBytes(CHARSET_NAME));
-        out.write(("Content-Disposition: form-data; name=\"file\"\r\n").getBytes(CHARSET_NAME));
-//        out.write(("Content-Type: content/unknown\r\n\r\n").getBytes(CHARSET_NAME));
-        out.write(Files.readFile(file));
-        out.write(("\r\n--" + boundary + "\r\n").getBytes(CHARSET_NAME));
+        String endBoundary = "\r\n--" + boundary + "--\r\n";
 
-        request.addPayload(out.toByteArray());
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        buffer.write(boundaryMessage.toString().getBytes(CHARSET_NAME));
+        buffer.write(Files.readFile(file));
+        buffer.write(endBoundary.getBytes(CHARSET_NAME));
+        request.addPayload(buffer.toByteArray());
+        buffer.close();
 
         return request;
     }
 
-    private static String generateBoundaryString(int length) {
+    private static String generateBoundaryString() {
         //todo impl
-        return "Asrf456BGe4h";
+       return Long.toHexString(System.nanoTime());
     }
 
 }

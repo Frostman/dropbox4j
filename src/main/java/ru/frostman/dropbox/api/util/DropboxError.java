@@ -52,6 +52,44 @@ public class DropboxError {
         THUMBNAILS_ERRORS.put(500, "No thumbnail available due to system error.");
     }
 
+    //  Copy requests errors
+    private static final Map<Integer, String> COPY_ERRORS = Maps.createHashMap();
+
+    static {
+        COPY_ERRORS.put(304, "Directory contents have not changed (relies on 'hash' parameter).");
+        COPY_ERRORS.put(400, "Operation attempted not allowed by token type. Root parameter is not full access or Sandbox.");
+        COPY_ERRORS.put(404, "Specified file path not found.");
+        COPY_ERRORS.put(507, "User over quota.");
+    }
+
+    //  Create folder requests errors
+    private static final Map<Integer, String> CREATE_FOLDER_ERRORS = Maps.createHashMap();
+
+    static {
+        CREATE_FOLDER_ERRORS.put(400, "Root parameter not Dropbox or sandbox. Operation attempted not allowed by token type. No path specified.");
+        CREATE_FOLDER_ERRORS.put(403, "A file or folder already exists at the location specified by the path.");
+        CREATE_FOLDER_ERRORS.put(404, "Specified file path not found.");
+        CREATE_FOLDER_ERRORS.put(507, "User over quota.");
+    }
+
+    // Delete requests errors
+    private static final Map<Integer, String> DELETE_ERRORS = Maps.createHashMap();
+
+    static {
+        DELETE_ERRORS.put(400, "Root parameter not Dropbox or sandbox. Operation attempted not allowed by token type. No path specified.");
+        DELETE_ERRORS.put(404, "Specified file path not found.");
+    }
+
+    // Move requests errors
+    private static final Map<Integer, String> MOVE_ERRORS = Maps.createHashMap();
+
+    static {
+        MOVE_ERRORS.put(400, "Operation attempted not allowed by token type. Root parameter is not Dropbox or Sandbox.");
+        MOVE_ERRORS.put(403, "File operation forbidden.");
+        MOVE_ERRORS.put(404, "Specified file path not found.");
+        MOVE_ERRORS.put(507, "User over quota.");
+    }
+
     private static void throwError(Map<Integer, String> errors, int code) {
         String msg = errors.get(code);
 
@@ -93,27 +131,39 @@ public class DropboxError {
     }
 
     public static Response checkCopy(Response response) {
+        int code = response.getCode();
 
-        //todo impl
+        throwError(COPY_ERRORS, code);
 
         return check(response);
     }
 
     public static Response checkMove(Response response) {
+        int code = response.getCode();
 
-        //todo impl
+        throwError(MOVE_ERRORS, code);
 
         return check(response);
     }
 
     public static Response checkDelete(Response response) {
+        int code = response.getCode();
 
-        //todo impl
+        throwError(DELETE_ERRORS, code);
 
         return check(response);
     }
 
     public static Response checkCreateFolder(Response response) {
+        int code = response.getCode();
+
+        throwError(CREATE_FOLDER_ERRORS, code);
+
+        return check(response);
+    }
+
+    public static Response checkPutFile(Response response) {
+        int code = response.getCode();
 
         //todo impl
 

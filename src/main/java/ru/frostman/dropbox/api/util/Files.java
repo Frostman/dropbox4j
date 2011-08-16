@@ -23,6 +23,26 @@ public class Files {
         return new FileInputStream(file);
     }
 
+    public static FileOutputStream createOutputStream(File file) throws IOException {
+        if (file.exists()) {
+            if (file.isDirectory()) {
+                throw new IOException("File '" + file + "' exists but is a directory");
+            }
+            if (!file.canWrite()) {
+                throw new IOException("File '" + file + "' exists but cannot be written to");
+            }
+        } else {
+            File parent = file.getParentFile();
+            if (parent != null && !parent.exists()) {
+                if (!parent.mkdirs()) {
+                    throw new IOException("File '" + file + "' could not be created");
+                }
+            }
+        }
+
+        return new FileOutputStream(file);
+    }
+
     public static byte[] readFile(File file) throws IOException {
         InputStream in = null;
         try {
@@ -36,6 +56,23 @@ public class Files {
             if (in != null) {
                 try {
                     in.close();
+                } catch (IOException e) {
+                    // no operations
+                }
+            }
+        }
+    }
+
+    public static void writeFile(File file, InputStream in) throws IOException {
+        OutputStream out = null;
+        try{
+            out = createOutputStream(file);
+
+            copy(in, out);
+        }   finally{
+            if(out!=null) {
+                try {
+                    out.close();
                 } catch (IOException e) {
                     // no operations
                 }

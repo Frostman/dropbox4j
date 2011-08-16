@@ -1,6 +1,7 @@
 package ru.frostman.dropbox.api.util;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import ru.frostman.dropbox.api.thr.DropboxJsonException;
 
 import java.io.IOException;
 
@@ -14,8 +15,7 @@ public class Json {
         try {
             return mapper.readValue(content, type);
         } catch (IOException e) {
-            //todo impl
-            throw new RuntimeException(e);
+            throw new DropboxJsonException("Exception while parsing json: " + content, e);
         }
     }
 }

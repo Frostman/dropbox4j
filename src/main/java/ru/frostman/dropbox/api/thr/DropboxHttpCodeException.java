@@ -3,7 +3,7 @@ package ru.frostman.dropbox.api.thr;
 /**
  * @author slukjanov aka Frostman
  */
-public class DropboxHttpCodeException extends DropboxApiBaseException {
+public class DropboxHttpCodeException extends DropboxBaseException {
     public DropboxHttpCodeException() {
     }
 

@@ -22,7 +22,7 @@ public class Dates {
         }
     }
 
-    public synchronized static String format(Date date){
+    public synchronized static String format(Date date) {
         return DATE_FORMAT.format(date);
     }
 }

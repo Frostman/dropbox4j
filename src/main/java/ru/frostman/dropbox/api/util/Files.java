@@ -65,12 +65,12 @@ public class Files {
 
     public static void writeFile(File file, InputStream in) throws IOException {
         OutputStream out = null;
-        try{
+        try {
             out = createOutputStream(file);
 
             copy(in, out);
-        }   finally{
-            if(out!=null) {
+        } finally {
+            if (out != null) {
                 try {
                     out.close();
                 } catch (IOException e) {

@@ -7,7 +7,7 @@ import java.util.HashMap;
  */
 public class Maps {
 
-    public static <K, V>HashMap<K, V> createHashMap(){
+    public static <K, V> HashMap<K, V> createHashMap() {
         return new HashMap<K, V>();
     }
 

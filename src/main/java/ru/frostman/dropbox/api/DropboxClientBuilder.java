@@ -29,6 +29,9 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
     private Token accessToken = null;
 
     private DropboxClientBuilder(String appKey, String appSecret) {
+        Preconditions.checkNotNull(appKey, "App key cannot be null");
+        Preconditions.checkNotNull(appSecret, "App secret cannot be null");
+
         this.appKey = appKey;
         this.appSecret = appSecret;
 
@@ -42,12 +45,12 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
     }
 
     public static DropboxAuthentication build(String appKey, String appSecret) {
-        //todo add preconditions
         return new DropboxClientBuilder(appKey, appSecret);
     }
 
     public static DropboxClient build(String appKey, String appSecret, Token accessToken) {
-        //todo add preconditions
+        Preconditions.checkNotNull(accessToken, "Access token cannot be null");
+
         DropboxClientBuilder builder = new DropboxClientBuilder(appKey, appSecret);
         builder.accessToken = accessToken;
 
@@ -55,7 +58,9 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
     }
 
     public static DropboxClient build(String appKey, String appSecret, String token, String secret) {
-        //todo add preconditions
+        Preconditions.checkNotNull(token, "Token cannot be null");
+        Preconditions.checkNotNull(secret, "Secret cannot be null");
+
         DropboxClientBuilder builder = new DropboxClientBuilder(appKey, appSecret);
         builder.accessToken = new Token(token, secret);
 
@@ -74,6 +79,7 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
 
     public WebAuthentication web(String callback) {
         Preconditions.checkValidOAuthCallback(callback, "Callback should be valid url or 'oob'");
+
         this.callback = callback;
 
         return this;

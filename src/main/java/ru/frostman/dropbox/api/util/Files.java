@@ -29,11 +29,7 @@ public class Files {
             in = createInputStream(file);
             ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-            byte[] buffer = new byte[BUFFER_SIZE];
-            int read;
-            while ((read = in.read(buffer)) != -1) {
-                out.write(buffer, 0, read);
-            }
+            copy(in, out);
 
             return out.toByteArray();
         } finally {
@@ -44,6 +40,14 @@ public class Files {
                     // no operations
                 }
             }
+        }
+    }
+
+    public static void copy(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[BUFFER_SIZE];
+        int read;
+        while ((read = in.read(buffer)) != -1) {
+            out.write(buffer, 0, read);
         }
     }
 

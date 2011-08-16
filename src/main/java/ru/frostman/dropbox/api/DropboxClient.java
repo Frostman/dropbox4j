@@ -133,10 +133,7 @@ public class DropboxClient {
         Multipart.attachFile(file, request);
         service.signRequest(accessToken, request);
 
-        Response response = checkFiles(request.send());
-
-        //todo impl, return FileDownload
-        //try Request#addPayload(byte[]) to upload files, it's not a part of signature, so we can normally use it.
+        checkFiles(request.send());
     }
 
     public EntryDownload getFile(String path) {

@@ -5,6 +5,10 @@ package ru.frostman.dropbox.api.model;
  */
 public enum ThumbnailSize {
 
-    SMALL, MEDIUM, LARGE
+    SMALL, MEDIUM, LARGE;
 
+    @Override
+    public String toString() {
+        return name().toLowerCase();
+    }
 }

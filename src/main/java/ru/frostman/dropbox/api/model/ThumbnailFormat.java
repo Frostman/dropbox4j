@@ -5,6 +5,10 @@ package ru.frostman.dropbox.api.model;
  */
 public enum ThumbnailFormat {
 
-    JPEG, PNG
+    JPEG, PNG;
 
+    @Override
+    public String toString() {
+        return name();
+    }
 }

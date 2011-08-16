@@ -90,6 +90,17 @@ public class DropboxError {
         MOVE_ERRORS.put(507, "User over quota.");
     }
 
+    // Files requests errors
+    private static final Map<Integer, String> FILES_ERRORS = Maps.createHashMap();
+
+    static {
+        FILES_ERRORS.put(304, "Directory contents have not changed (relies on 'hash' parameter).");
+        FILES_ERRORS.put(400, "Operation attempted not allowed by token type. Root parameter is not full access or Sandbox.");
+        FILES_ERRORS.put(404, "File path not found.");
+        FILES_ERRORS.put(406, "Too many file entries to return.");
+        FILES_ERRORS.put(411, "Length required. This typically returns when you attempt to upload over HTTP using chunked encoding. The Dropbox API currently does not support chunked transfer encoding.");
+    }
+
     private static void throwError(Map<Integer, String> errors, int code) {
         String msg = errors.get(code);
 
@@ -162,10 +173,10 @@ public class DropboxError {
         return check(response);
     }
 
-    public static Response checkPutFile(Response response) {
+    public static Response checkFiles(Response response) {
         int code = response.getCode();
 
-        //todo impl
+        throwError(FILES_ERRORS, code);
 
         return check(response);
     }

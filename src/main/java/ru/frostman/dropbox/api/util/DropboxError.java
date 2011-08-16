@@ -1,6 +1,7 @@
 package ru.frostman.dropbox.api.util;
 
 import org.scribe.model.Response;
+import ru.frostman.dropbox.api.thr.DropboxHttpCodeException;
 
 import java.util.Map;
 
@@ -105,8 +106,7 @@ public class DropboxError {
         String msg = errors.get(code);
 
         if (msg != null) {
-            //todo impl
-            throw new RuntimeException("Dropbox error: " + msg);
+            throw new DropboxHttpCodeException("Dropbox returns " + code + ": " + msg);
         }
     }
 
@@ -118,8 +118,7 @@ public class DropboxError {
         throwError(API_ERRORS, code);
 
         if (code != 200) {
-            //todo impl
-            throw new RuntimeException("Unknown error with code: " + code);
+            throw new DropboxHttpCodeException("Dropbox returns " + code);
         }
 
         return response;

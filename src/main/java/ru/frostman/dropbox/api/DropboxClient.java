@@ -133,14 +133,23 @@ public class DropboxClient {
         Multipart.attachFile(file, request);
         service.signRequest(accessToken, request);
 
-        Response response = checkPutFile(request.send());
+        Response response = checkFiles(request.send());
 
         //todo impl, return FileDownload
         //try Request#addPayload(byte[]) to upload files, it's not a part of signature, so we can normally use it.
     }
 
+    public EntryDownload getFile(String path) {
+        OAuthRequest request = new OAuthRequest(Verb.GET, FILES_URL + path);
+        service.signRequest(accessToken, request);
+
+        Response response = checkFiles(request.send());
+
+        return new EntryDownload(response, path);
+    }
+
     public ThumbnailDownload getThumbnail(String path) {
-         return getThumbnail(path, ThumbnailSize.SMALL, ThumbnailFormat.JPEG);
+        return getThumbnail(path, ThumbnailSize.SMALL, ThumbnailFormat.JPEG);
     }
 
     public ThumbnailDownload getThumbnail(String path, ThumbnailSize size, ThumbnailFormat format) {

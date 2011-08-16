@@ -1,14 +1,18 @@
 package ru.frostman.dropbox.api;
 
 import org.scribe.model.OAuthRequest;
+import org.scribe.model.Response;
 import org.scribe.model.Token;
 import org.scribe.model.Verb;
 import org.scribe.oauth.OAuthService;
 import ru.frostman.dropbox.api.model.AccountInfo;
 import ru.frostman.dropbox.api.model.Entry;
 import ru.frostman.dropbox.api.util.Json;
+import ru.frostman.dropbox.api.util.Multipart;
 
 import javax.annotation.Nullable;
+import java.io.File;
+import java.io.IOException;
 
 import static ru.frostman.dropbox.api.util.DropboxError.*;
 
@@ -18,6 +22,7 @@ import static ru.frostman.dropbox.api.util.DropboxError.*;
 public class DropboxClient {
     private static final String INFO_URL = "https://api.dropbox.com/0/account/info";
     private static final String METADATA_URL = "https://api.dropbox.com/0/metadata/dropbox";
+    private static final String FILES_URL = "https://api-content.dropbox.com/0/files/dropbox";
     private static final String FILE_OPS_COPY_URL = "https://api.dropbox.com/0/fileops/copy";
     private static final String FILE_OPS_MOVE_URL = "https://api.dropbox.com/0/fileops/move";
     private static final String FILE_OPS_DELETE_URL = "https://api.dropbox.com/0/fileops/delete";
@@ -122,4 +127,16 @@ public class DropboxClient {
 
         return Json.parse(content, Entry.class);
     }
+
+    public void putFile(File file, String path) throws IOException {
+        OAuthRequest request = new OAuthRequest(Verb.POST, FILES_URL+path);
+        Multipart.attachFile(file, request);
+        service.signRequest(accessToken, request);
+
+        Response response = checkPutFile(request.send());
+
+
+    }
+
+    //try Request#addPayload(byte[]) to upload files, it's not a part of signature, so we can normally use it.
 }

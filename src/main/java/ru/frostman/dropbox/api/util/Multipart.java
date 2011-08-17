@@ -56,8 +56,7 @@ public class Multipart {
     }
 
     private static String generateBoundaryString() {
-        //todo impl
-       return Long.toHexString(System.nanoTime());
+        return Long.toHexString(System.nanoTime());
     }
 
 }

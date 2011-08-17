@@ -34,10 +34,6 @@ public class ThumbnailDownload extends Download {
         this.format = format;
     }
 
-    public void getAsImage() {
-        //todo impl
-    }
-
     public ThumbnailSize getSize() {
         return size;
     }

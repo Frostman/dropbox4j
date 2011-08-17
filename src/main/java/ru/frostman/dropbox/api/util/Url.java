@@ -1,5 +1,5 @@
 /*
- * Dropbox API Java implementation.
+ * Dropbox4j - Dropbox API Java implementation.
  *
  * Copyright (c) 2011 - Sergey "Frosman" Lukjanov, me@frostman.ru
  *
@@ -30,7 +30,7 @@ import java.net.URLEncoder;
  */
 public class Url {
 
-    public static String encode(String url ){
+    public static String encode(String url) {
         try {
             return URLEncoder.encode(url, "UTF-8").replace("%2F", "/").replace("+", "%20");
         } catch (UnsupportedEncodingException e) {

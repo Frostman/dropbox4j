@@ -1,5 +1,5 @@
 /*
- * Dropbox API Java implementation.
+ * Dropbox4j - Dropbox API Java implementation.
  *
  * Copyright (c) 2011 - Sergey "Frosman" Lukjanov, me@frostman.ru
  *
@@ -25,7 +25,7 @@ import org.scribe.model.Response;
  *
  * @author slukjanov aka Frostman
  */
-public class EntryDownload  extends Download{
+public class EntryDownload extends Download {
 
     public EntryDownload(Response response, String path) {
         super(response, path);

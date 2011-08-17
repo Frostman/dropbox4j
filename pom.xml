@@ -1,5 +1,5 @@
 <!--
-  ~ Dropbox API Java implementation.
+  ~ Dropbox4j - Dropbox API Java implementation.
   ~
   ~ Copyright (c) 2011 - Sergey "Frosman" Lukjanov, me@frostman.ru
   ~
@@ -20,13 +20,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.frostman.dropbox.api</groupId>
-    <artifactId>dropbox-api-java</artifactId>
+    <groupId>ru.frostman.dropbox</groupId>
+    <artifactId>dropbox4j</artifactId>
     <version>0.1-SNAPSHOT</version>
 
     <packaging>jar</packaging>
 
-    <name>dropbox-api-java</name>
+    <name>dropbox4j</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

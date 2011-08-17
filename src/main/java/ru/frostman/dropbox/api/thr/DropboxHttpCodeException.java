@@ -22,18 +22,14 @@ package ru.frostman.dropbox.api.thr;
  * @author slukjanov aka Frostman
  */
 public class DropboxHttpCodeException extends DropboxBaseException {
-    public DropboxHttpCodeException() {
-    }
+    private final int code;
 
-    public DropboxHttpCodeException(String message) {
+    public DropboxHttpCodeException(String message, int code) {
         super(message);
+        this.code = code;
     }
 
-    public DropboxHttpCodeException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public DropboxHttpCodeException(Throwable cause) {
-        super(cause);
+    public int getCode() {
+        return code;
     }
 }

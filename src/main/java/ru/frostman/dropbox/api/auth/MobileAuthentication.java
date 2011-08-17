@@ -21,10 +21,22 @@ package ru.frostman.dropbox.api.auth;
 import ru.frostman.dropbox.api.DropboxClient;
 
 /**
+ * This class provides authentication by user's credentials.
+ *
  * @author slukjanov aka Frostman
  */
 public interface MobileAuthentication {
 
+    /**
+     * Authenticate user by his credentials.
+     *
+     * @param email    to auth
+     * @param password to auth
+     *
+     * @return ready to use DropboxClient
+     *
+     * @see DropboxClient
+     */
     DropboxClient authenticate(String email, String password);
 
 }

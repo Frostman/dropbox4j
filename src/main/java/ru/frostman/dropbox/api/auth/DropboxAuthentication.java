@@ -19,14 +19,35 @@
 package ru.frostman.dropbox.api.auth;
 
 /**
+ * This class provides two ways of authentication.
+ *
  * @author slukjanov aka Frostman
+ * @see WebAuthentication
+ * @see MobileAuthentication
  */
 public interface DropboxAuthentication {
 
+    /**
+     * @return web authenticator
+     *
+     * @see WebAuthentication
+     */
     WebAuthentication web();
 
+    /**
+     * @param callback to add to auth url
+     *
+     * @return web authenticator with specified callback
+     *
+     * @see WebAuthentication
+     */
     WebAuthentication web(String callback);
 
+    /**
+     * @return mobile authenticator (by user's credentials)
+     *
+     * @see MobileAuthentication
+     */
     MobileAuthentication mobile();
 
 }

@@ -21,11 +21,23 @@ package ru.frostman.dropbox.api.auth;
 import ru.frostman.dropbox.api.DropboxClient;
 
 /**
+ * This class provides authentication by authorization url.
+ *
  * @author slukjanov aka Frostman
  */
 public interface WebAuthentication {
 
+    /**
+     * @return authorization url that user should open and accept app access
+     */
     String getAuthorizationUrl();
 
+    /**
+     * Receive access token and prepare DropboxClient.
+     *
+     * @return ready to use DropboxClient
+     *
+     * @see DropboxClient
+     */
     DropboxClient receiveAccessToken();
 }

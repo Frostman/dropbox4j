@@ -32,6 +32,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static ru.frostman.dropbox.api.util.DropboxError.*;
+import static ru.frostman.dropbox.api.util.Url.encode;
 
 /**
  * @author slukjanov aka Frostman
@@ -83,7 +84,7 @@ public class DropboxClient {
     }
 
     public Entry getMetadata(String path, int fileLimit, @Nullable String hash, boolean list) {
-        OAuthRequest request = new OAuthRequest(Verb.GET, METADATA_URL + path);
+        OAuthRequest request = new OAuthRequest(Verb.GET, METADATA_URL + encode(path));
 
         if (fileLimit != 10000)
             request.addQuerystringParameter("file_limit", Integer.toString(fileLimit));
@@ -105,8 +106,8 @@ public class DropboxClient {
     public Entry copy(String from, String to) {
         OAuthRequest request = new OAuthRequest(Verb.GET, FILE_OPS_COPY_URL);
         request.addQuerystringParameter("root", "dropbox");
-        request.addQuerystringParameter("from_path", from);
-        request.addQuerystringParameter("to_path", to);
+        request.addQuerystringParameter("from_path", encode(from));
+        request.addQuerystringParameter("to_path", encode(to));
 
         service.signRequest(accessToken, request);
         String content = checkCopy(request.send()).getBody();
@@ -117,8 +118,8 @@ public class DropboxClient {
     public Entry move(String from, String to) {
         OAuthRequest request = new OAuthRequest(Verb.GET, FILE_OPS_MOVE_URL);
         request.addQuerystringParameter("root", "dropbox");
-        request.addQuerystringParameter("from_path", from);
-        request.addQuerystringParameter("to_path", to);
+        request.addQuerystringParameter("from_path", encode(from));
+        request.addQuerystringParameter("to_path", encode(to));
 
         service.signRequest(accessToken, request);
         String content = checkMove(request.send()).getBody();
@@ -129,7 +130,7 @@ public class DropboxClient {
     public void delete(String path) {
         OAuthRequest request = new OAuthRequest(Verb.GET, FILE_OPS_DELETE_URL);
         request.addQuerystringParameter("root", "dropbox");
-        request.addQuerystringParameter("path", path);
+        request.addQuerystringParameter("path", encode(path));
 
         service.signRequest(accessToken, request);
         checkDelete(request.send());
@@ -138,7 +139,7 @@ public class DropboxClient {
     public Entry createFolder(String path) {
         OAuthRequest request = new OAuthRequest(Verb.GET, FILE_OPS_CREATE_FOLDER_URL);
         request.addQuerystringParameter("root", "dropbox");
-        request.addQuerystringParameter("path", path);
+        request.addQuerystringParameter("path", encode(path));
 
         service.signRequest(accessToken, request);
         String content = checkCreateFolder(request.send()).getBody();
@@ -147,7 +148,7 @@ public class DropboxClient {
     }
 
     public void putFile(File file, String path) throws IOException {
-        OAuthRequest request = new OAuthRequest(Verb.POST, FILES_URL + path);
+        OAuthRequest request = new OAuthRequest(Verb.POST, FILES_URL + encode(path));
         Multipart.attachFile(file, request);
         service.signRequest(accessToken, request);
 
@@ -155,7 +156,7 @@ public class DropboxClient {
     }
 
     public EntryDownload getFile(String path) {
-        OAuthRequest request = new OAuthRequest(Verb.GET, FILES_URL + path);
+        OAuthRequest request = new OAuthRequest(Verb.GET, FILES_URL + encode(path));
         service.signRequest(accessToken, request);
 
         Response response = checkFiles(request.send());
@@ -168,7 +169,7 @@ public class DropboxClient {
     }
 
     public ThumbnailDownload getThumbnail(String path, ThumbnailSize size, ThumbnailFormat format) {
-        OAuthRequest request = new OAuthRequest(Verb.GET, THUMBNAILS_URL + path);
+        OAuthRequest request = new OAuthRequest(Verb.GET, THUMBNAILS_URL + encode(path));
 
         if (size != ThumbnailSize.SMALL) {
             request.addQuerystringParameter("size", size.toString());

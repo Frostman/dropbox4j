@@ -26,6 +26,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
+ * This is the base class for downloadable entries.
+ *
  * @author slukjanov aka Frostman
  */
 public abstract class Download {
@@ -37,18 +39,32 @@ public abstract class Download {
         this.path = path;
     }
 
+    /**
+     * @return InputStream for the resource
+     */
     public InputStream getAsStream() {
         return response.getStream();
     }
 
+    /**
+     * @return resource's content as string
+     */
     public String getAsString() {
         return response.getBody();
     }
 
+    /**
+     * @param file to save in
+     *
+     * @throws IOException iff problems with accessing file
+     */
     public void saveToFile(File file) throws IOException {
         Files.writeFile(file, getAsStream());
     }
 
+    /**
+     * @return path in Dropbox of the resource
+     */
     public String getPath() {
         return path;
     }

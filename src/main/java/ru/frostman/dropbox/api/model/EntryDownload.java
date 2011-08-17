@@ -21,6 +21,8 @@ package ru.frostman.dropbox.api.model;
 import org.scribe.model.Response;
 
 /**
+ * This class provides access to content of Dropbox entries.
+ *
  * @author slukjanov aka Frostman
  */
 public class EntryDownload  extends Download{

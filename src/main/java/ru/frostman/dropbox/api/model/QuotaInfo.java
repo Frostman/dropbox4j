@@ -19,6 +19,8 @@
 package ru.frostman.dropbox.api.model;
 
 /**
+ * This class provides read only information about quota.
+ *
  * @author slukjanov aka Frostman
  */
 public class QuotaInfo {

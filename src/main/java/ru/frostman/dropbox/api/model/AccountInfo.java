@@ -21,6 +21,8 @@ package ru.frostman.dropbox.api.model;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 /**
+ * This class provides read only access to account information.
+ *
  * @author slukjanov aka Frostman
  */
 public class AccountInfo {

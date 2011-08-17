@@ -19,6 +19,8 @@
 package ru.frostman.dropbox.api.model;
 
 /**
+ * Size of the thumbnail.
+ *
  * @author slukjanov aka Frostman
  */
 public enum ThumbnailSize {

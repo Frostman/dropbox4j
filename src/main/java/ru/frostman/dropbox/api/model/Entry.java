@@ -23,6 +23,9 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import java.util.List;
 
 /**
+ * This class provides read only access to information
+ * about Dropbox entry (such as file or directory).
+ *
  * @author slukjanov aka Frostman
  */
 public class Entry {

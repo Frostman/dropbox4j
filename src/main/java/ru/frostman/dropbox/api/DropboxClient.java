@@ -31,9 +31,7 @@ import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 
-import static ru.frostman.dropbox.api.DropboxDefaults.FILE_LIMIT;
-import static ru.frostman.dropbox.api.DropboxDefaults.THUMBNAIL_FORMAT;
-import static ru.frostman.dropbox.api.DropboxDefaults.THUMBNAIL_SIZE;
+import static ru.frostman.dropbox.api.DropboxDefaults.*;
 import static ru.frostman.dropbox.api.util.DropboxError.*;
 import static ru.frostman.dropbox.api.util.Url.encode;
 
@@ -206,6 +204,7 @@ public class DropboxClient {
      * @see Entry
      * @see DropboxDefaults
      */
+    @SuppressWarnings({"PointlessBooleanExpression"})
     public Entry getMetadata(String path, int fileLimit, @Nullable String hash, boolean list) {
         OAuthRequest request = new OAuthRequest(Verb.GET, METADATA_URL + encode(path));
 
@@ -216,7 +215,7 @@ public class DropboxClient {
             request.addQuerystringParameter("hash", hash);
         }
 
-        if (list != DropboxDefaults.LIST) {
+        if (list != LIST) {
             request.addQuerystringParameter("list", Boolean.toString(list));
         }
 

@@ -26,32 +26,58 @@ import org.scribe.utils.Preconditions;
 import ru.frostman.dropbox.api.auth.DropboxAuthentication;
 import ru.frostman.dropbox.api.auth.MobileAuthentication;
 import ru.frostman.dropbox.api.auth.WebAuthentication;
+import ru.frostman.dropbox.api.model.DropboxAccessToken;
+import ru.frostman.dropbox.api.util.Json;
 
 import static org.scribe.utils.URLUtils.formURLEncode;
 
 /**
+ * This class provides methods to create ready to use DropboxClient
+ * instance by different ways.
+ *
  * @author slukjanov aka Frostman
+ * @see DropboxClient
  */
 public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentication, MobileAuthentication {
+    /**
+     * Empty verifier for Scribe framework because of Dropbox isn't using OAuth verification
+     */
     private static final Verifier EMPTY_VERIFIER = new Verifier("");
+
+    /**
+     * Url to get access token from user's credentials
+     */
     private static final String MOBILE_AUTH_URL = "https://api.dropbox.com/0/token";
 
-    private final String appKey;
-    private final String appSecret;
-
+    /**
+     * Callback url for web authentication
+     */
     private String callback;
 
+    /**
+     * Current OAuth client
+     */
     private final OAuthService service;
 
+    /**
+     * Current request token
+     */
     private Token requestToken = null;
+
+    /**
+     * Current access token
+     */
     private Token accessToken = null;
 
+    /**
+     * Creates instance of DropboxClientBuilder ready to authenticate user
+     *
+     * @param appKey    application key
+     * @param appSecret application secret
+     */
     private DropboxClientBuilder(String appKey, String appSecret) {
         Preconditions.checkNotNull(appKey, "App key cannot be null");
         Preconditions.checkNotNull(appSecret, "App secret cannot be null");
-
-        this.appKey = appKey;
-        this.appSecret = appSecret;
 
         service = new ServiceBuilder()
                 .provider(DropBoxApi.class)
@@ -62,10 +88,32 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
         requestToken = service.getRequestToken();
     }
 
+    /**
+     * Build authenticator to application with specified appKey and appSecret.
+     *
+     * @param appKey    application key
+     * @param appSecret application secret
+     *
+     * @return authenticator
+     *
+     * @see DropboxAuthentication
+     */
     public static DropboxAuthentication build(String appKey, String appSecret) {
         return new DropboxClientBuilder(appKey, appSecret);
     }
 
+    /**
+     * Build ready to use DropboxClient with specified appKey and appSecret
+     * with specified access token (without authenticator).
+     *
+     * @param appKey      application key
+     * @param appSecret   application secret
+     * @param accessToken access token
+     *
+     * @return ready to use dropbox client
+     *
+     * @see DropboxClient
+     */
     public static DropboxClient build(String appKey, String appSecret, Token accessToken) {
         Preconditions.checkNotNull(accessToken, "Access token cannot be null");
 
@@ -75,6 +123,19 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
         return builder.buildDropboxClient();
     }
 
+    /**
+     * Build ready to use DropboxClient with specified appKey and appSecret
+     * with specified access token (without authenticator).
+     *
+     * @param appKey    application key
+     * @param appSecret application secret
+     * @param token     part of access token
+     * @param secret    part of access token
+     *
+     * @return ready to use dropbox client
+     *
+     * @see DropboxClient
+     */
     public static DropboxClient build(String appKey, String appSecret, String token, String secret) {
         Preconditions.checkNotNull(token, "Token cannot be null");
         Preconditions.checkNotNull(secret, "Secret cannot be null");
@@ -85,6 +146,9 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
         return builder.buildDropboxClient();
     }
 
+    /**
+     * @return new instance of DropboxClient with current OAuth client and access token
+     */
     private DropboxClient buildDropboxClient() {
         return new DropboxClient(service, accessToken);
     }
@@ -129,9 +193,7 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
         request.addQuerystringParameter("password", password);
         service.signRequest(requestToken, request);
 
-        //todo impl
-//        accessToken = EXTRACTOR.extract(request.send().getBody());
-//        System.out.println(request.send().getBody());
+        accessToken = Json.parse(request.send().getBody(), DropboxAccessToken.class).toOauthToken();
 
         return buildDropboxClient();
     }

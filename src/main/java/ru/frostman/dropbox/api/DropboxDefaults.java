@@ -22,11 +22,29 @@ import ru.frostman.dropbox.api.model.ThumbnailFormat;
 import ru.frostman.dropbox.api.model.ThumbnailSize;
 
 /**
+ * Class with public constants of some Dropbox API defaults.
+ *
  * @author slukjanov aka Frostman
  */
 public class DropboxDefaults {
+
+    /**
+     * Default file limit (for metadata requests)
+     */
     public static final int FILE_LIMIT = 10000;
+
+    /**
+     * Default downloading child entries list (for metadata request)
+     */
     public static final boolean LIST = true;
+
+    /**
+     * Default thumbnail size
+     */
     public static final ThumbnailSize THUMBNAIL_SIZE = ThumbnailSize.SMALL;
+
+    /**
+     * Default thumbnail format
+     */
     public static final ThumbnailFormat THUMBNAIL_FORMAT = ThumbnailFormat.JPEG;
 }

@@ -25,12 +25,24 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * Util to work with multipart requests.
+ *
  * @author slukjanov aka Frostman
  */
 public class Multipart {
 
     private static final String CHARSET_NAME = "UTF-8";
 
+    /**
+     * Correct attaching specified file to existing request.
+     *
+     * @param file    to attach
+     * @param request to attach at
+     *
+     * @return request with attached file
+     *
+     * @throws IOException iff problems with accessing file
+     */
     public static OAuthRequest attachFile(File file, OAuthRequest request) throws IOException {
         String boundary = generateBoundaryString();
         request.addHeader("Content-Type", "multipart/form-data; boundary=" + boundary);

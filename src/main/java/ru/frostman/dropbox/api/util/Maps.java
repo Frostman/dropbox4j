@@ -21,6 +21,8 @@ package ru.frostman.dropbox.api.util;
 import java.util.HashMap;
 
 /**
+ * Util to work with maps.
+ *
  * @author slukjanov aka Frostman
  */
 public class Maps {

@@ -26,12 +26,22 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
+ * This class provides methods to parse and format dates like Dropbox.
+ * Format: Sat, 21 Aug 2010 22:31:20 +0000
+ *
  * @author slukjanov aka Frostman
  */
 public class Dates {
     // smth like Sat, 21 Aug 2010 22:31:20 +0000
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
 
+    /**
+     * Format: Sat, 21 Aug 2010 22:31:20 +0000
+     *
+     * @param date string to parse
+     *
+     * @return parsed date
+     */
     public synchronized static Date parse(String date) {
         try {
             return DATE_FORMAT.parse(date);
@@ -40,6 +50,13 @@ public class Dates {
         }
     }
 
+    /**
+     * Format: Sat, 21 Aug 2010 22:31:20 +0000
+     *
+     * @param date to format
+     *
+     * @return string with formatted date
+     */
     public synchronized static String format(Date date) {
         try {
             return DATE_FORMAT.format(date);

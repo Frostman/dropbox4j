@@ -24,6 +24,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 /**
+ * Util to work with urls.
+ *
  * @author slukjanov aka Frostman
  */
 public class Url {

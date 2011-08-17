@@ -24,6 +24,8 @@ import ru.frostman.dropbox.api.thr.DropboxJsonException;
 import java.io.IOException;
 
 /**
+ * Util to type-safe parse json strings.
+ *
  * @author slukjanov aka Frostman
  */
 public class Json {

@@ -21,6 +21,8 @@ package ru.frostman.dropbox.api.util;
 import java.io.*;
 
 /**
+ * Helper class to work with files.
+ *
  * @author slukjanov aka Frostman
  */
 public class Files {

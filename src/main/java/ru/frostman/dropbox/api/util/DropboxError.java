@@ -24,6 +24,8 @@ import ru.frostman.dropbox.api.thr.DropboxHttpCodeException;
 import java.util.Map;
 
 /**
+ * Internal helper class that provides checking http codes.
+ *
  * @author slukjanov aka Frostman
  */
 public class DropboxError {
@@ -124,7 +126,7 @@ public class DropboxError {
         String msg = errors.get(code);
 
         if (msg != null) {
-            throw new DropboxHttpCodeException("Dropbox returns " + code + ": " + msg);
+            throw new DropboxHttpCodeException("Dropbox returns " + code + ": " + msg, code);
         }
     }
 
@@ -136,7 +138,7 @@ public class DropboxError {
         throwError(API_ERRORS, code);
 
         if (code != 200) {
-            throw new DropboxHttpCodeException("Dropbox returns " + code);
+            throw new DropboxHttpCodeException("Dropbox returns " + code, code);
         }
 
         return response;

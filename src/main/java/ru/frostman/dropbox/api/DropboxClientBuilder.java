@@ -1,5 +1,5 @@
 /*
- * Dropbox API Java implementation.
+ * Dropbox4j - Dropbox API Java implementation.
  *
  * Copyright (c) 2011 - Sergey "Frosman" Lukjanov, me@frostman.ru
  *
@@ -84,8 +84,6 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
                 .apiKey(appKey)
                 .apiSecret(appSecret)
                 .build();
-
-        requestToken = service.getRequestToken();
     }
 
     /**
@@ -99,7 +97,10 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
      * @see DropboxAuthentication
      */
     public static DropboxAuthentication build(String appKey, String appSecret) {
-        return new DropboxClientBuilder(appKey, appSecret);
+        DropboxClientBuilder builder = new DropboxClientBuilder(appKey, appSecret);
+        builder.requestToken = builder.service.getRequestToken();
+
+        return builder;
     }
 
     /**

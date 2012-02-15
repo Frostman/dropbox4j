@@ -48,7 +48,8 @@ public class Multipart {
         request.addHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
         request.addBodyParameter("file", file.getName());
 
-        StringBuilder boundaryMessage = new StringBuilder("--").append(boundary)
+        StringBuilder boundaryMessage = new StringBuilder("--");
+        boundaryMessage.append(boundary)
                 .append("\r\n")
                 .append("Content-Disposition: form-data; name=\"file\"; filename=\"").append(file.getName())
                 .append("\"\r\n")

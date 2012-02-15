@@ -66,7 +66,7 @@ public class FilesTest {
         byte[] bytes = Files.readFile(new File(this.getClass().getResource("/test.txt").toURI()));
         Assert.assertNotNull(bytes);
 
-        Assert.assertEquals("This is a test file\r\n", new String(bytes));
+        Assert.assertEquals("This is a test file\n", new String(bytes));
     }
 
     @Test

@@ -1,7 +1,7 @@
 <!--
   ~ Dropbox4j - Dropbox API Java implementation.
   ~
-  ~ Copyright (c) 2011 - Sergey "Frosman" Lukjanov, me@frostman.ru
+  ~ Copyright (c) 2012 - Sergey "Frosman" Lukjanov, me@frostman.ru
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -58,7 +58,7 @@
         <dependency>
             <groupId>org.scribe</groupId>
             <artifactId>scribe</artifactId>
-            <version>1.2.1</version>
+            <version>1.2.3</version>
         </dependency>
 
         <!-- JSON -->
@@ -77,7 +77,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.2</version>
+            <version>4.9</version>
         </dependency>
 
         <dependency>

@@ -19,7 +19,6 @@
 package ru.frostman.dropbox.api;
 
 import org.scribe.builder.ServiceBuilder;
-import org.scribe.builder.api.DropBoxApi;
 import org.scribe.model.*;
 import org.scribe.oauth.OAuthService;
 import org.scribe.utils.Preconditions;
@@ -80,9 +79,12 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
         Preconditions.checkNotNull(appSecret, "App secret cannot be null");
 
         service = new ServiceBuilder()
-                .provider(DropBoxApi.class)
+                .provider(new DropboxApi())
                 .apiKey(appKey)
                 .apiSecret(appSecret)
+                .callback("")
+                        //todo remove debug in release
+                .debug()
                 .build();
     }
 

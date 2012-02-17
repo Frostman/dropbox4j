@@ -82,7 +82,6 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
                 .provider(new DropboxApi())
                 .apiKey(appKey)
                 .apiSecret(appSecret)
-                .callback("")
                         //todo remove debug in release
                 .debug()
                 .build();

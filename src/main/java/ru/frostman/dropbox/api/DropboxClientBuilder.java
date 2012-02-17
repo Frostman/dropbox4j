@@ -36,17 +36,13 @@ import static org.scribe.utils.OAuthEncoder.encode;
  *
  * @author slukjanov aka Frostman
  * @see DropboxClient
+ * @see DropboxApi
  */
 public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentication, MobileAuthentication {
     /**
      * Empty verifier for Scribe framework because of Dropbox isn't using OAuth verification
      */
     private static final Verifier EMPTY_VERIFIER = new Verifier("");
-
-    /**
-     * Url to get access token from user's credentials
-     */
-    private static final String MOBILE_AUTH_URL = "https://api.dropbox.com/0/token";
 
     /**
      * Callback url for web authentication
@@ -190,7 +186,7 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
     // --- MobileAuthentication Impl ---
 
     public DropboxClient authenticate(String email, String password) {
-        OAuthRequest request = new OAuthRequest(Verb.GET, MOBILE_AUTH_URL);
+        OAuthRequest request = new OAuthRequest(Verb.GET, DropboxApi.MOBILE_AUTH_URL);
         request.addQuerystringParameter("email", email);
         request.addQuerystringParameter("password", password);
         service.signRequest(requestToken, request);

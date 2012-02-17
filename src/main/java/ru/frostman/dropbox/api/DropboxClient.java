@@ -31,6 +31,7 @@ import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 
+import static ru.frostman.dropbox.api.DropboxApi.*;
 import static ru.frostman.dropbox.api.DropboxDefaults.*;
 import static ru.frostman.dropbox.api.util.DropboxError.*;
 import static ru.frostman.dropbox.api.util.Url.encode;
@@ -45,45 +46,6 @@ import static ru.frostman.dropbox.api.util.Url.encode;
  * @see DropboxClientBuilder
  */
 public class DropboxClient {
-    /**
-     * Url to get account info
-     */
-    private static final String INFO_URL = "https://api.dropbox.com/1/account/info";
-
-    /**
-     * Url to get metadata information
-     */
-    private static final String METADATA_URL = "https://api.dropbox.com/1/metadata/dropbox";
-
-    /**
-     * Url to download and upload files
-     */
-    private static final String FILES_URL = "https://api-content.dropbox.com/1/files/dropbox";
-
-    /**
-     * Url to download thumbnails
-     */
-    private static final String THUMBNAILS_URL = "https://api-content.dropbox.com/1/thumbnails/dropbox";
-
-    /**
-     * Url to copy files
-     */
-    private static final String FILE_OPS_COPY_URL = "https://api.dropbox.com/1/fileops/copy";
-
-    /**
-     * Url to move files
-     */
-    private static final String FILE_OPS_MOVE_URL = "https://api.dropbox.com/1/fileops/move";
-
-    /**
-     * Url to delete files
-     */
-    private static final String FILE_OPS_DELETE_URL = "https://api.dropbox.com/1/fileops/delete";
-
-    /**
-     * Url to create folders
-     */
-    private static final String FILE_OPS_CREATE_FOLDER_URL = "https://api.dropbox.com/1/fileops/create_folder";
 
     /**
      * Current OAuth client instance

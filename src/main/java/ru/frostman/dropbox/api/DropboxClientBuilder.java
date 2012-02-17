@@ -29,7 +29,7 @@ import ru.frostman.dropbox.api.auth.WebAuthentication;
 import ru.frostman.dropbox.api.model.DropboxAccessToken;
 import ru.frostman.dropbox.api.util.Json;
 
-import static org.scribe.utils.URLUtils.formURLEncode;
+import static org.scribe.utils.OAuthEncoder.encode;
 
 /**
  * This class provides methods to create ready to use DropboxClient
@@ -176,7 +176,7 @@ public class DropboxClientBuilder implements DropboxAuthentication, WebAuthentic
 
     public String getAuthorizationUrl() {
         return service.getAuthorizationUrl(requestToken)
-                + "&" + OAuthConstants.CALLBACK + "=" + formURLEncode(callback);
+                + "&" + OAuthConstants.CALLBACK + "=" + encode(callback);
     }
 
     public DropboxClient receiveAccessToken() {

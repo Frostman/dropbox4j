@@ -57,8 +57,7 @@ public class DropboxApi extends DefaultApi10a {
      * Url to get access token from user's credentials.
      * It is a deprecated way to auth, can be removed from API.
      */
-    public static final String MOBILE_AUTH_URL = "https://api.dropbox.com/" + API_VERSION
-            + "/token";
+    public static final String MOBILE_AUTH_URL = "https://api.dropbox.com/0/token";
 
     /**
      * Url to get account info

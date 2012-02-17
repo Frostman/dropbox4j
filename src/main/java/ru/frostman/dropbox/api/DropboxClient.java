@@ -48,42 +48,42 @@ public class DropboxClient {
     /**
      * Url to get account info
      */
-    private static final String INFO_URL = "https://api.dropbox.com/0/account/info";
+    private static final String INFO_URL = "https://api.dropbox.com/1/account/info";
 
     /**
      * Url to get metadata information
      */
-    private static final String METADATA_URL = "https://api.dropbox.com/0/metadata/dropbox";
+    private static final String METADATA_URL = "https://api.dropbox.com/1/metadata/dropbox";
 
     /**
      * Url to download and upload files
      */
-    private static final String FILES_URL = "https://api-content.dropbox.com/0/files/dropbox";
+    private static final String FILES_URL = "https://api-content.dropbox.com/1/files/dropbox";
 
     /**
      * Url to download thumbnails
      */
-    private static final String THUMBNAILS_URL = "https://api-content.dropbox.com/0/thumbnails/dropbox";
+    private static final String THUMBNAILS_URL = "https://api-content.dropbox.com/1/thumbnails/dropbox";
 
     /**
      * Url to copy files
      */
-    private static final String FILE_OPS_COPY_URL = "https://api.dropbox.com/0/fileops/copy";
+    private static final String FILE_OPS_COPY_URL = "https://api.dropbox.com/1/fileops/copy";
 
     /**
      * Url to move files
      */
-    private static final String FILE_OPS_MOVE_URL = "https://api.dropbox.com/0/fileops/move";
+    private static final String FILE_OPS_MOVE_URL = "https://api.dropbox.com/1/fileops/move";
 
     /**
      * Url to delete files
      */
-    private static final String FILE_OPS_DELETE_URL = "https://api.dropbox.com/0/fileops/delete";
+    private static final String FILE_OPS_DELETE_URL = "https://api.dropbox.com/1/fileops/delete";
 
     /**
      * Url to create folders
      */
-    private static final String FILE_OPS_CREATE_FOLDER_URL = "https://api.dropbox.com/0/fileops/create_folder";
+    private static final String FILE_OPS_CREATE_FOLDER_URL = "https://api.dropbox.com/1/fileops/create_folder";
 
     /**
      * Current OAuth client instance
